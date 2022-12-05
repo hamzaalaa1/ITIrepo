@@ -22,7 +22,6 @@ class Complex
          Complex add(Complex c);
          Complex sub(Complex c);
          void print();
-
 };
 int main()
 {

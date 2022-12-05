@@ -1,13 +1,14 @@
 #include<iostream.h>
 #include<conio.h>
  
-
+//using namespace std;
 class Stack
 { 
       int size ; 
       int top ; 
       int *ptr ; 
       static int objCount ; 
+
   public :
      
        Stack();
@@ -20,9 +21,11 @@ class Stack
        int pop  (int &pValue);
        static int getCount();
        friend void viewStack(Stack s);
+       Stack& operator=(const Stack &);
 };
 
 int Stack::objCount = 0; //initialize static variable 
+void copyArray(int *ptr1,int *ptr2 , int size);
 
 int main()
 {
@@ -35,9 +38,10 @@ int main()
        s.push(3);
        s.push(4);
        s.push(6);
-       
+
+       /*cout<<"number of objects :"<<Stack::getCount()<<'\n';
        viewStack(s);
-       
+       cout<<"after return form view number of objects :"<<Stack::getCount()<<'\n';
        s.pop(value);
        cout<<"first   poped value "<<value<<'\n';
        s.pop(value);  
@@ -48,15 +52,12 @@ int main()
        cout<<"4th poped value "<<value<<'\n';
        s.pop(value);   
        cout<<"5th poped value "<<value<<"\n\n";
-       s.pop(value);   
-       cout<<"check pop function return value when it empty\n";
-       cout<<"5th poped value "<<value<<'\n';
-       s.pop(value);
-       cout<<"5th poped value "<<value<<'\n';
-       s.pop(value);
+       s.pop(value);   */
        
+     //  cout<<"number of objects :"<<Stack::getCount();
        getch();
-       
+       Stack s2 = s;
+       viewStack(s2);
        return 0 ;
  
 }
@@ -83,7 +84,9 @@ Stack::Stack(Stack &s)
    size = s.size ;
    ptr = new int[size];
    for(int i = 0 ; i <= top ; i++)
-     ptr[i] = s.ptr[i]; 
+       ptr[i] = s.ptr[i];
+     
+   objCount++;   
 }
 int Stack::isEmpty()
 {
@@ -123,8 +126,9 @@ int Stack::getCount()
  	return objCount ;
 }
 
-void viewStack(Stack s)
+void  viewStack(Stack s)
 {
+        cout<<"in side view number of objects :"<<Stack::getCount()<<'\n';
 	for(int i = 0 ; i <=s.top ; i++)
 	   cout<<"stack element number "<<i+1<<':'<<s.ptr[i]<<'\n';
 }
@@ -133,4 +137,20 @@ Stack::~Stack()
 {
 	delete [] ptr;
 	objCount -- ;
+}
+
+Stack& Stack::operator=(const Stack &S)
+{
+        size =  S.size;
+        top  =  S.top;
+        ptr  = new int[size];
+       copyArray(ptr,S.ptr,size); 
+       return *this;
+}
+void copyArray(int *ptr1,int *ptr2,int size)
+{
+        for(int i = 0 ; i <= size ; i++)
+        {
+           ptr1[i] = ptr2[i];
+        }
 }
