@@ -10,8 +10,8 @@ class Complex
         char u; 
     public  :
          Complex();
-         Complex(float r,char u);
-         Complex(float r, float i,char u);
+         Complex(float r);
+         Complex(float r, float i);
          ~Complex();
 
          void setReal(float r);
@@ -38,37 +38,16 @@ class Complex
 Complex operator++(Complex &c,int);
 
 int main()
-{
-   //clrscr();
-   Complex myComp1, myComp2(3, 4,'A'), resultComp(5,'B') ;
-   myComp2.operator<<(cout);          //calling a overloading function by 1 set & get overhead 2 complex is copy 3 formate is hard;
-   myComp2<<(resultComp<<cout);      //this is not familiar with programmers
-   cout << myComp2;                   //the deas  desired format ;
+{   int size  = 3;
+ 
 
-//--------------------------------------------------------------------------------------//
-   
-   resultComp =  myComp1+myComp2;  
-   cout << "sum is :"<< resultComp<<endl;
-
-//--------------------------------------------------------------------------------------//
-
-   operator++(resultComp,0);//compiler call ;
-   cout << resultComp;
-   resultComp++; //our call ;
-   cout<<resultComp; //  why we can not type like that cout << result++ ; my Q1; q becuse we can not take the reference from returned function
-   
-//---------------------------------------------------------------------------------------//
-
-   Complex c = myComp2;
-   cout<<"c2 "<<c;
-
-//---------------------------------------------------------------------------------------// 
-
-  Complex x(1,1,'R');
-  cout <<"x + mycomp2 :"<<(x += myComp2)<<endl;  
-  cout <<(float) x<<'\n';
- // getch();
-  return 0 ;
+  // Complex *c[size] = {new Complex(1.2),new Complex(2.2),new Complex(1,3)};
+    
+  Complex *cPtr[size] = {new Complex(1),new Complex(2),new Complex(3)};
+   for (int i = 0 ; i < size ; i++)
+      cout << cPtr[i][0]; 
+for(int i = 0 ; i < size ; i++);
+    // delete [] cPtr;
 }
 
     Complex::Complex()
@@ -76,16 +55,16 @@ int main()
     real = imag = 0 ; 
   
 }
-    Complex::Complex(float r ,float i ,char uu)
+    Complex::Complex(float r ,float i)
 {
-     u = uu ;
+  
      real = r; 
      imag = i ;    
      
 }
-    Complex::Complex(float r,char uu)
+    Complex::Complex(float r)
 {
-     u = uu ;
+  
      real = imag = r ;
       
 }
@@ -144,7 +123,7 @@ int main()
       real = f; 
       imag = f;
 }  
-    void Complex::setAldl(float r, float i)
+    void Complex::setAll(float r, float i)
 {
       real = r; 
       imag = i;
